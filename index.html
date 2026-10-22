@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Me AI Assistant</title>
+  <style>
+    body {
+      background: #10131a;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 25px 12px;
+    }
+    h1 { color: #70a5ff; }
+    #chat {
+      max-width: 500px;
+      margin: 20px auto;
+      background: #202633;
+      padding: 15px;
+      border-radius: 15px;
+      min-height: 220px;
+      text-align: left;
+    }
+    #messages { white-space: pre-wrap; }
+    input, button {
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+    input { width: 65%; }
+    button { background: #70a5ff; color: #10131a; }
+  </style>
+</head>
+<body>
+  <h1>ME AI</h1>
+  <p>Your personal assistant starts here.</p>
+  <div id="chat">
+    <div id="messages">Me: Hey! I'm your personal assistant. Ask me something!</div>
+  </div>
+  <input id="question" placeholder="Type a message...">
+  <button onclick="reply()">Send</button>
+  <button onclick="speak()">Talk</button>
+
+  <script>
+    function reply() {
+      const input = document.getElementById("question");
+      const messages = document.getElementById("messages");
+      const q = input.value.trim();
+      if (!q) return;
+      messages.textContent += "\n\nYou: " + q;
+      messages.textContent += "\n\nMe: I'm here to help! I need an AI connection to answer questions intelligently.";
+      input.value = "";
+    }
+
+    function speak() {
+      if (!("speechSynthesis" in window)) {
+        alert("Voice is not supported in this browser.");
+        return;
+      }
+      const speech = new SpeechSynthesisUtterance(
+        document.getElementById("messages").textContent
+      );
+      speechSynthesis.speak(speech);
+    }
+  </script>
+</body>
+</html>
